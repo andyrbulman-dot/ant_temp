@@ -1,0 +1,299 @@
+/* ===========================================================================
+   O-Reg Thermal
+   One stylesheet for the whole site. Mobile first: every layout starts as a
+   single column and only becomes columns when there is room, so nothing has to
+   be undone at small sizes.
+   ======================================================================== */
+
+:root {
+  /* Ink and paper. The dark navy carries the header and footer; the body is
+     paper, because a consultancy's pages are read, not admired. */
+  --ink:      #0c1a2b;
+  --ink-soft: #17304a;
+  --paper:    #ffffff;
+  --paper-2:  #f4f7fa;
+  --line:     #dbe4ee;
+
+  --text:     #16283a;
+  --text-2:   #566a7d;
+
+  /* Blue is the working colour — links, buttons, structure. Amber appears only
+     where the subject is heat itself: the temperature figures, the warnings,
+     the one call to action per screen. Used sparingly it means something. */
+  --blue:     #0a63a8;
+  --blue-dk:  #084d84;
+  --blue-lt:  #e7f1fa;
+  --heat:     #d9541f;
+  --heat-lt:  #fdf0e9;
+
+  --radius:   10px;
+  --shadow:   0 1px 2px rgba(12,26,43,.06), 0 8px 24px rgba(12,26,43,.06);
+  --wrap:     1140px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--text);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--blue); }
+
+h1, h2, h3 { color: var(--ink); line-height: 1.2; margin: 0 0 .5em; font-weight: 700; }
+h1 { font-size: clamp(30px, 5vw, 46px); letter-spacing: -.02em; }
+h2 { font-size: clamp(24px, 3.4vw, 32px); letter-spacing: -.01em; }
+h3 { font-size: 19px; }
+p  { margin: 0 0 1em; }
+p:last-child { margin-bottom: 0; }
+
+.wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 20px; }
+.narrow { max-width: 760px; }
+
+/* Vertical rhythm lives in one place, so sections cannot drift apart. */
+section { padding: clamp(48px, 7vw, 84px) 0; }
+section.tight { padding: clamp(32px, 4vw, 48px) 0; }
+.alt { background: var(--paper-2); border-block: 1px solid var(--line); }
+
+.lede { font-size: clamp(17px, 2vw, 20px); color: var(--text-2); }
+
+/* ---- skip link, for anyone arriving on the keyboard --------------------- */
+.skip {
+  position: absolute; left: -9999px; top: 0; z-index: 100;
+  background: var(--ink); color: #fff; padding: 10px 16px; border-radius: 0 0 var(--radius) 0;
+}
+.skip:focus { left: 0; }
+
+/* ---- header ------------------------------------------------------------ */
+.site-head {
+  background: var(--ink);
+  position: sticky; top: 0; z-index: 50;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.head-in { display: flex; align-items: center; gap: 16px; padding-block: 12px; }
+
+.logo { display: flex; align-items: center; gap: 11px; text-decoration: none; margin-right: auto; }
+.logo img { width: 40px; height: 40px; border-radius: 8px; background: #fff; }
+.logo .name { color: #fff; font-weight: 700; font-size: 17px; letter-spacing: -.01em; line-height: 1.15; }
+.logo .what { color: #9fb6ca; font-size: 11.5px; letter-spacing: .04em; text-transform: uppercase; }
+
+.nav { display: flex; align-items: center; gap: 4px; }
+.nav a {
+  color: #d4e2ee; text-decoration: none; font-size: 15px; font-weight: 600;
+  padding: 9px 13px; border-radius: 7px;
+}
+.nav a:hover { background: rgba(255,255,255,.08); color: #fff; }
+.nav a[aria-current="page"] { color: #fff; background: rgba(255,255,255,.12); }
+
+/* The menu button only exists on small screens, so it is hidden by default
+   rather than shown and then taken away. */
+.menu-btn {
+  display: none; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+  color: #fff; font: inherit; font-size: 14px; font-weight: 600;
+  padding: 9px 13px; border-radius: 7px; cursor: pointer; align-items: center; gap: 8px;
+}
+.menu-btn:hover { background: rgba(255,255,255,.18); }
+
+/* ---- buttons ----------------------------------------------------------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font: inherit; font-size: 16px; font-weight: 600; text-decoration: none;
+  padding: 12px 22px; border-radius: 8px; border: 1px solid transparent;
+  cursor: pointer; transition: background .15s, border-color .15s, transform .06s;
+  min-height: 46px;                 /* a comfortable target on a phone */
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--heat); color: #fff; }
+.btn-primary:hover { background: #c4491a; }
+.btn-blue { background: var(--blue); color: #fff; }
+.btn-blue:hover { background: var(--blue-dk); }
+.btn-ghost { background: transparent; color: var(--blue); border-color: var(--line); }
+.btn-ghost:hover { border-color: var(--blue); background: var(--blue-lt); }
+.btn-onDark { background: rgba(255,255,255,.1); color: #fff; border-color: rgba(255,255,255,.25); }
+.btn-onDark:hover { background: rgba(255,255,255,.18); }
+.btn-sm { font-size: 14.5px; padding: 9px 15px; min-height: 40px; }
+
+.btn-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+
+/* ---- hero -------------------------------------------------------------- */
+.hero {
+  background: linear-gradient(165deg, var(--ink) 0%, #143352 60%, #17466f 100%);
+  color: #fff; padding: clamp(44px, 7vw, 88px) 0;
+  position: relative; overflow: hidden;
+}
+/* A suggestion of heat rising through the corner. Drawn, not loaded. */
+.hero::after {
+  content: ""; position: absolute; right: -140px; top: -120px;
+  width: 520px; height: 520px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(217,84,31,.30), transparent 62%);
+  pointer-events: none;
+}
+.hero .wrap { position: relative; z-index: 1; }
+.hero h1 { color: #fff; margin-bottom: .35em; }
+.hero .lede { color: #cfe0ee; max-width: 44ch; }
+.eyebrow {
+  display: inline-block; font-size: 12.5px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: #ffc9b0; margin-bottom: 14px;
+}
+.hero-grid { display: grid; gap: 32px; align-items: center; }
+.hero-art img { border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,.35); }
+
+/* ---- the strip of facts under the hero --------------------------------- */
+.facts { background: var(--ink-soft); color: #fff; }
+.facts ul {
+  list-style: none; margin: 0; padding: 14px 0;
+  display: flex; flex-wrap: wrap; gap: 8px 28px; justify-content: center;
+  font-size: 14.5px; font-weight: 600;
+}
+.facts li { display: flex; align-items: center; gap: 8px; color: #d6e5f2; }
+.facts svg { flex: none; color: #7fc8a9; }
+
+/* ---- cards ------------------------------------------------------------- */
+.grid { display: grid; gap: 20px; }
+.grid-3 { grid-template-columns: minmax(0, 1fr); }
+.grid-2 { grid-template-columns: minmax(0, 1fr); }
+/* Without this a wide image sets the column width and pushes the row off the
+   screen, taking the text beside it along. */
+.grid > *, .split > *, .hero-grid > * { min-width: 0; }
+
+.card {
+  background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 24px; box-shadow: var(--shadow);
+  display: flex; flex-direction: column;
+}
+.card h3 { margin-bottom: 8px; }
+.card p { color: var(--text-2); font-size: 16px; }
+.card .price {
+  margin-top: auto; padding-top: 14px; font-weight: 700; color: var(--heat); font-size: 15.5px;
+}
+.card .price span { color: var(--text-2); font-weight: 500; }
+.icon {
+  width: 44px; height: 44px; border-radius: 10px; background: var(--blue-lt);
+  color: var(--blue); display: grid; place-items: center; margin-bottom: 14px; flex: none;
+}
+.icon.warm { background: var(--heat-lt); color: var(--heat); }
+
+/* ---- a plain list of what is delivered --------------------------------- */
+.ticks { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.ticks li { display: flex; gap: 12px; align-items: flex-start; font-size: 16.5px; }
+.ticks svg { flex: none; margin-top: 4px; color: var(--blue); }
+.ticks b { color: var(--ink); }
+
+/* ---- numbered steps ---------------------------------------------------- */
+.steps { list-style: none; margin: 0; padding: 0; counter-reset: s; display: grid; gap: 18px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 40px 1fr; gap: 16px; align-items: start; }
+.steps li::before {
+  content: counter(s); grid-row: span 2;
+  width: 40px; height: 40px; border-radius: 50%; background: var(--blue); color: #fff;
+  display: grid; place-items: center; font-weight: 700; font-size: 16px;
+}
+.steps h3 { margin-bottom: 2px; font-size: 17.5px; }
+.steps p { color: var(--text-2); font-size: 16px; }
+
+/* ---- pull quote -------------------------------------------------------- */
+.quote {
+  background: var(--paper); border: 1px solid var(--line); border-left: 4px solid var(--heat);
+  border-radius: var(--radius); padding: 26px 28px; box-shadow: var(--shadow);
+}
+.quote blockquote { margin: 0 0 14px; font-size: clamp(18px, 2.3vw, 22px); line-height: 1.5; color: var(--ink); }
+.quote figcaption { font-size: 15px; color: var(--text-2); }
+.quote figcaption b { color: var(--ink); display: block; }
+
+/* ---- call to action band ----------------------------------------------- */
+.cta { background: var(--ink); color: #fff; text-align: center; }
+.cta h2 { color: #fff; }
+.cta p { color: #c3d6e6; max-width: 56ch; margin-inline: auto; }
+.cta .btn-row { justify-content: center; }
+
+/* ---- forms ------------------------------------------------------------- */
+.field { margin-bottom: 16px; }
+.field label { display: block; font-weight: 600; font-size: 15px; margin-bottom: 6px; color: var(--ink); }
+.field .req { color: var(--heat); }
+.field input, .field select, .field textarea {
+  width: 100%; font: inherit; font-size: 16px; padding: 11px 13px;
+  border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--text);
+}
+.field textarea { min-height: 150px; resize: vertical; }
+.field input:focus, .field select:focus, .field textarea:focus {
+  outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(10,99,168,.14);
+}
+.field .hint { font-size: 13.5px; color: var(--text-2); margin-top: 5px; }
+.form-note { font-size: 14px; color: var(--text-2); margin-top: 14px; }
+
+/* ---- contact details --------------------------------------------------- */
+.detail { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 20px; }
+.detail .icon { width: 40px; height: 40px; margin: 0; }
+.detail .k { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--text-2); font-weight: 700; }
+.detail .v { font-size: 17px; font-weight: 600; }
+.detail .v a { text-decoration: none; }
+.detail .v a:hover { text-decoration: underline; }
+
+/* ---- footer ------------------------------------------------------------ */
+.site-foot { background: var(--ink); color: #a9c0d3; font-size: 15px; padding: 48px 0 28px; }
+.foot-grid { display: grid; gap: 28px; margin-bottom: 30px; }
+.site-foot h4 { color: #fff; font-size: 15px; margin: 0 0 10px; }
+.site-foot a { color: #cfe0ee; text-decoration: none; }
+.site-foot a:hover { color: #fff; text-decoration: underline; }
+.site-foot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
+.foot-base {
+  border-top: 1px solid rgba(255,255,255,.12); padding-top: 20px;
+  display: flex; flex-wrap: wrap; gap: 10px 24px; justify-content: space-between; font-size: 13.5px;
+}
+
+/* ===========================================================================
+   Wider screens. Everything above works at 320px; these only add columns.
+   ======================================================================== */
+@media (min-width: 700px) {
+  .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .foot-grid { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr); }
+  .steps li { grid-template-columns: 48px minmax(0, 1fr); }
+}
+
+@media (min-width: 900px) {
+  .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .hero-grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 48px; }
+  .split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px; align-items: center; }
+  .split.wide-left { grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); }
+}
+
+/* ---- the small-screen menu --------------------------------------------- */
+@media (max-width: 860px) {
+  .menu-btn { display: inline-flex; }
+  .nav {
+    display: none; position: absolute; left: 0; right: 0; top: 100%;
+    background: var(--ink-soft); border-top: 1px solid rgba(255,255,255,.1);
+    flex-direction: column; align-items: stretch; gap: 0; padding: 8px;
+  }
+  .nav.open { display: flex; }
+  .nav a { padding: 13px 14px; border-radius: 8px; }
+  .nav .btn { margin-top: 6px; justify-content: center; }
+  .site-head { position: relative; }     /* the panel needs something to anchor to */
+  .head-in { position: static; }
+}
+
+@media (max-width: 420px) {
+  body { font-size: 16px; }
+  .logo .what { display: none; }
+}
+
+/* Anyone who has asked their machine to stop moving things gets a still page. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; animation: none !important; }
+}
+
+@media print {
+  .site-head, .cta, .btn, .menu-btn { display: none !important; }
+  body { font-size: 12pt; color: #000; }
+  .hero { background: none; color: #000; }
+  .hero h1, .cta h2 { color: #000; }
+}
